@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Solomon Christian Publishing produces thoughtful Christian books and written works in service to truth, wisdom, and the Gospel of Jesus Christ."
+  >
+
+  <title>Solomon Christian Publishing</title>
+
+  <style>
+    :root {
+      --navy: #101923;
+      --deep-blue: #17283a;
+      --gold: #c5a35b;
+      --light-gold: #e3cb91;
+      --cream: #f4eddc;
+      --paper: #fffaf0;
+      --text: #252525;
+      --muted: #625f59;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background: var(--paper);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      background: var(--cream);
+      border-bottom: 4px solid var(--gold);
+      padding: 26px 20px;
+      text-align: center;
+    }
+
+    .site-title {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      line-height: 1.05;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+    }
+
+    .site-tagline {
+      margin: 12px 0 0;
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      color: #66532e;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 70px 24px;
+      text-align: center;
+      color: var(--white);
+      background:
+        linear-gradient(
+          rgba(8, 15, 23, 0.88),
+          rgba(12, 25, 39, 0.94)
+        ),
+        radial-gradient(
+          circle at center,
+          #314c68 0%,
+          #17283a 45%,
+          #0d151e 100%
+        );
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .hero-inner {
+      width: min(920px, 100%);
+    }
+
+    .hero-label {
+      margin: 0 0 18px;
+      color: var(--light-gold);
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      margin: 0;
+      font-size: clamp(2.4rem, 6vw, 5.4rem);
+      line-height: 1.05;
+    }
+
+    .hero-description {
+      max-width: 760px;
+      margin: 26px auto 0;
+      font-size: clamp(1.08rem, 2.2vw, 1.4rem);
+      color: #f3eee3;
+    }
+
+    .hero-button {
+      display: inline-block;
+      margin-top: 34px;
+      padding: 14px 26px;
+      border: 2px solid var(--light-gold);
+      border-radius: 6px;
+      color: var(--navy);
+      background: var(--light-gold);
+      text-decoration: none;
+      font-weight: bold;
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .hero-button:hover,
+    .hero-button:focus {
+      transform: translateY(-2px);
+      background: var(--cream);
+    }
+
+    .section {
+      padding: 70px 24px;
+    }
+
+    .section-inner {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      margin: 0 0 16px;
+      text-align: center;
+      color: var(--navy);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+    }
+
+    .section-intro {
+      max-width: 780px;
+      margin: 0 auto 42px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.12rem;
+    }
+
+    .book-card {
+      display: grid;
+      grid-template-columns: minmax(220px, 320px) 1fr;
+      gap: 44px;
+      align-items: center;
+      padding: 38px;
+      background: var(--white);
+      border: 1px solid #ded3bd;
+      border-radius: 12px;
+      box-shadow: 0 18px 40px rgba(21, 29, 37, 0.11);
+    }
+
+    .book-placeholder {
+      min-height: 390px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      text-align: center;
+      color: var(--cream);
+      background:
+        linear-gradient(
+          145deg,
+          #0c1520,
+          #1f3449 55%,
+          #0e1822
+        );
+      border: 3px solid var(--gold);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
+    }
+
+    .book-placeholder strong {
+      display: block;
+      font-size: 1.8rem;
+      line-height: 1.2;
+    }
+
+    .book-placeholder span {
+      display: block;
+      margin-top: 18px;
+      color: var(--light-gold);
+      font-size: 1rem;
+    }
+
+    .coming-soon {
+      margin: 0 0 10px;
+      color: #836621;
+      font-weight: bold;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .book-title {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.08;
+    }
+
+    .book-subtitle {
+      margin: 12px 0 24px;
+      color: #735d2d;
+      font-size: 1.25rem;
+      font-style: italic;
+    }
+
+    .book-copy {
+      font-size: 1.08rem;
+    }
+
+    .mission {
+      color: var(--white);
+      background: var(--deep-blue);
+      text-align: center;
+    }
+
+    .mission .section-heading {
+      color: var(--light-gold);
+    }
+
+    .mission p {
+      max-width: 800px;
+      margin: 0 auto;
+      color: #f0ece4;
+      font-size: 1.15rem;
+    }
+
+    .site-footer {
+      padding: 26px 20px;
+      text-align: center;
+      color: #d6d8db;
+      background: #090f15;
+      border-top: 3px solid var(--gold);
+    }
+
+    .site-footer p {
+      margin: 5px 0;
+    }
+
+    @media (max-width: 760px) {
+      .site-header {
+        padding: 22px 16px;
+      }
+
+      .hero {
+        min-height: 500px;
+        padding: 55px 20px;
+      }
+
+      .section {
+        padding: 55px 18px;
+      }
+
+      .book-card {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 24px;
+      }
+
+      .book-placeholder {
+        width: min(300px, 100%);
+        min-height: 380px;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <h1 class="site-title">Solomon Christian Publishing</h1>
+
+    <p class="site-tagline">
+      Publishing truth, wisdom, and hope in Jesus Christ
+    </p>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-inner">
+
+        <p class="hero-label">
+          Books with purpose
+        </p>
+
+        <h2>
+          Written Work in Service to Truth
+        </h2>
+
+        <p class="hero-description">
+          Solomon Christian Publishing exists to carry thoughtful,
+          carefully developed Christian work into the world—beginning
+          with <em>Fingerprint of Reality: Science, Design, and the
+          Truth Beyond Matter</em>.
+        </p>
+
+        <a class="hero-button" href="#featured-book">
+          Discover the First Book
+        </a>
+
+      </div>
+    </section>
+
+    <section class="section" id="featured-book">
+      <div class="section-inner">
+
+        <h2 class="section-heading">
+          Our First Publication
+        </h2>
+
+        <p class="section-intro">
+          A serious exploration of science, evidence, meaning, and the
+          truth that stands beyond matter.
+        </p>
+
+        <article class="book-card">
+
+          <div class="book-placeholder">
+            <div>
+              <strong>
+                Fingerprint<br>
+                of Reality
+              </strong>
+
+              <span>
+                Cover image coming soon
+              </span>
+            </div>
+          </div>
+
+          <div>
+            <p class="coming-soon">
+              Coming Soon
+            </p>
+
+            <h3 class="book-title">
+              Fingerprint of Reality
+            </h3>
+
+            <p class="book-subtitle">
+              Science, Design, and the Truth Beyond Matter
+            </p>
+
+            <div class="book-copy">
+
+              <p>
+                Is reality the product of blind accident—or does it bear
+                the marks of intention?
+              </p>
+
+              <p>
+                <em>Fingerprint of Reality</em> examines evidence drawn
+                from cosmology, mathematics, language, biology,
+                archaeology, quantum computation, morality, and human
+                consciousness.
+              </p>
+
+              <p>
+                What begins as an inquiry into science and design becomes
+                a search for meaning, truth, and the One who stands beyond
+                creation.
+              </p>
+
+            </div>
+          </div>
+
+        </article>
+      </div>
+    </section>
+
+    <section class="section mission">
+      <div class="section-inner">
+
+        <h2 class="section-heading">
+          Our Publishing Mission
+        </h2>
+
+        <p>
+          We seek to publish clear, thoughtful, Christ-centered work that
+          treats serious questions honestly, respects the reader, defends
+          truth without compromise, and ultimately points beyond human
+          wisdom to Jesus Christ.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      © 2026 Solomon Christian Publishing
+    </p>
+
+    <p>
+      solomonforjesus.org
+    </p>
+  </footer>
+
+</body>
+</html>
