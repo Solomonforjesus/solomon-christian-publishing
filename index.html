@@ -49,13 +49,8 @@
       --white: #ffffff;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -65,10 +60,7 @@
       line-height: 1.6;
     }
 
-    img {
-      display: block;
-      max-width: 100%;
-    }
+    img { display: block; max-width: 100%; }
 
     .visually-hidden {
       position: absolute;
@@ -88,10 +80,7 @@
       border-bottom: 4px solid var(--gold);
     }
 
-    .banner-image {
-      width: 100%;
-      height: auto;
-    }
+    .banner-image { width: 100%; height: auto; }
 
     .hero-section {
       width: 100%;
@@ -108,12 +97,10 @@
       border-radius: 14px;
     }
 
-    .section {
-      padding: 70px 24px;
-    }
+    .section { padding: 70px 24px; }
 
     .section-inner {
-      width: min(1100px, 100%);
+      width: min(1400px, 100%);
       margin: 0 auto;
     }
 
@@ -144,10 +131,6 @@
       box-shadow: 0 18px 40px rgba(21, 29, 37, 0.11);
     }
 
-    .section-inner {
-      width: min(1400px, 100%);
-    }
-
     .book-covers {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -157,6 +140,7 @@
     }
 
     .cover-frame {
+      position: relative;
       width: 100%;
       aspect-ratio: 0.654 / 1;
       overflow: hidden;
@@ -165,18 +149,10 @@
       box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2);
     }
 
-    .front-cover {
+    .cover-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    .back-cover {
-      position: relative;
-      background-image: url('Final Book Covers Approved.png');
-      background-repeat: no-repeat;
-      background-size: 229.23% auto;
-      background-position: left top;
     }
 
     .back-cover::after {
@@ -211,9 +187,7 @@
       font-style: italic;
     }
 
-    .book-copy {
-      font-size: 1.08rem;
-    }
+    .book-copy { font-size: 1.08rem; }
 
     .mission {
       color: var(--white);
@@ -221,9 +195,7 @@
       text-align: center;
     }
 
-    .mission .section-heading {
-      color: var(--light-gold);
-    }
+    .mission .section-heading { color: var(--light-gold); }
 
     .mission p {
       max-width: 800px;
@@ -240,9 +212,7 @@
       border-top: 3px solid var(--gold);
     }
 
-    .site-footer p {
-      margin: 5px 0;
-    }
+    .site-footer p { margin: 5px 0; }
 
     @media (min-width: 1400px) {
       .banner-image {
@@ -252,33 +222,15 @@
     }
 
     @media (max-width: 1180px) {
-      .book-card {
-        grid-template-columns: 1fr;
-      }
-
-      .book-covers {
-        margin: 0 auto;
-      }
+      .book-card { grid-template-columns: 1fr; }
+      .book-covers { margin: 0 auto; }
     }
 
     @media (max-width: 700px) {
-      .section {
-        padding: 55px 18px;
-      }
-
-      .hero-section {
-        padding: 24px 16px;
-      }
-
-      .hero-image {
-        max-width: 520px;
-      }
-
-      .book-card {
-        gap: 30px;
-        padding: 24px;
-      }
-
+      .section { padding: 55px 18px; }
+      .hero-section { padding: 24px 16px; }
+      .hero-image { max-width: 520px; }
+      .book-card { gap: 30px; padding: 24px; }
       .book-covers {
         grid-template-columns: 1fr;
         width: min(440px, 100%);
@@ -312,9 +264,7 @@
     <section class="section" id="featured-book">
       <div class="section-inner">
 
-        <h2 class="section-heading">
-          Our First Publication
-        </h2>
+        <h2 class="section-heading">Our First Publication</h2>
 
         <p class="section-intro">
           A serious exploration of science, evidence, meaning, and the
@@ -326,34 +276,31 @@
           <div class="book-covers" aria-label="Fingerprint of Reality front and back covers">
             <div class="cover-frame">
               <img
-                class="front-cover"
-                src="ChatGPT Image Aug 25, 2026, 10_14_47 AM.png"
+                class="cover-image"
+                src="fingerprint-front-hires.png"
                 alt="Front cover of Fingerprint of Reality by Gary Dearing"
               >
             </div>
 
-            <div
-              class="cover-frame back-cover"
-              role="img"
-              aria-label="Back cover of Fingerprint of Reality by Gary Dearing"
-            ></div>
+            <div class="cover-frame back-cover">
+              <img
+                class="cover-image"
+                src="fingerprint-back-hires.png"
+                alt="Back cover of Fingerprint of Reality by Gary Dearing"
+              >
+            </div>
           </div>
 
           <div>
-            <p class="coming-soon">
-              Coming Soon
-            </p>
+            <p class="coming-soon">Coming Soon</p>
 
-            <h3 class="book-title">
-              Fingerprint of Reality
-            </h3>
+            <h3 class="book-title">Fingerprint of Reality</h3>
 
             <p class="book-subtitle">
               Science, Design, and the Truth Beyond Matter
             </p>
 
             <div class="book-copy">
-
               <p>
                 Is reality the product of blind accident—or does it bear
                 the marks of intention?
@@ -371,7 +318,6 @@
                 a search for meaning, truth, and the One who stands beyond
                 creation.
               </p>
-
             </div>
           </div>
 
@@ -382,9 +328,7 @@
     <section class="section mission">
       <div class="section-inner">
 
-        <h2 class="section-heading">
-          Our Publishing Mission
-        </h2>
+        <h2 class="section-heading">Our Publishing Mission</h2>
 
         <p>
           Solomon Christian Publishing exists to carry thoughtful,
@@ -400,13 +344,8 @@
   </main>
 
   <footer class="site-footer">
-    <p>
-      © 2026 Solomon Christian Publishing
-    </p>
-
-    <p>
-      solomonforjesus.org
-    </p>
+    <p>© 2026 Solomon Christian Publishing</p>
+    <p>solomonforjesus.org</p>
   </footer>
 
 </body>
