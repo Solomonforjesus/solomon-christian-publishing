@@ -49,8 +49,13 @@
       --white: #ffffff;
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
@@ -60,7 +65,10 @@
       line-height: 1.6;
     }
 
-    img { display: block; max-width: 100%; }
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
     .visually-hidden {
       position: absolute;
@@ -80,7 +88,10 @@
       border-bottom: 4px solid var(--gold);
     }
 
-    .banner-image { width: 100%; height: auto; }
+    .banner-image {
+      width: 100%;
+      height: auto;
+    }
 
     .hero-section {
       width: 100%;
@@ -88,12 +99,18 @@
       border-bottom: 5px solid var(--gold);
     }
 
-    .hero-image { width: 100%; height: auto; margin: 0 auto; }
+    .hero-image {
+      width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
 
-    .section { padding: 70px 24px; }
+    .section {
+      padding: 70px 24px;
+    }
 
     .section-inner {
-      width: min(1180px, 100%);
+      width: min(1100px, 100%);
       margin: 0 auto;
     }
 
@@ -113,6 +130,10 @@
     }
 
     .book-card {
+      display: grid;
+      grid-template-columns: minmax(520px, 920px) 1fr;
+      gap: 44px;
+      align-items: center;
       padding: 38px;
       background: var(--white);
       border: 1px solid #ded3bd;
@@ -120,13 +141,16 @@
       box-shadow: 0 18px 40px rgba(21, 29, 37, 0.11);
     }
 
+    .section-inner {
+      width: min(1400px, 100%);
+    }
+
     .book-covers {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 30px;
-      width: min(920px, 100%);
-      margin: 0 auto 42px;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
       align-items: start;
+      width: min(920px, 100%);
     }
 
     .cover-frame {
@@ -145,16 +169,21 @@
     }
 
     .back-cover {
+      position: relative;
       background-image: url('Final Book Covers Approved.png');
       background-repeat: no-repeat;
       background-size: 229.23% auto;
       background-position: left top;
     }
 
-    .book-details {
-      max-width: 820px;
-      margin: 0 auto;
-      text-align: center;
+    .back-cover::after {
+      content: "";
+      position: absolute;
+      right: 4.5%;
+      bottom: 1.8%;
+      width: 38%;
+      height: 13.5%;
+      background: #07131f;
     }
 
     .coming-soon {
@@ -181,7 +210,6 @@
 
     .book-copy {
       font-size: 1.08rem;
-      text-align: left;
     }
 
     .mission {
@@ -190,7 +218,9 @@
       text-align: center;
     }
 
-    .mission .section-heading { color: var(--light-gold); }
+    .mission .section-heading {
+      color: var(--light-gold);
+    }
 
     .mission p {
       max-width: 800px;
@@ -207,7 +237,9 @@
       border-top: 3px solid var(--gold);
     }
 
-    .site-footer p { margin: 5px 0; }
+    .site-footer p {
+      margin: 5px 0;
+    }
 
     @media (min-width: 1400px) {
       .banner-image,
@@ -217,13 +249,29 @@
       }
     }
 
-    @media (max-width: 760px) {
-      .section { padding: 55px 18px; }
-      .book-card { padding: 24px; }
+    @media (max-width: 1180px) {
+      .book-card {
+        grid-template-columns: 1fr;
+      }
+
+      .book-covers {
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .section {
+        padding: 55px 18px;
+      }
+
+      .book-card {
+        gap: 30px;
+        padding: 24px;
+      }
+
       .book-covers {
         grid-template-columns: 1fr;
-        width: min(460px, 100%);
-        gap: 26px;
+        width: min(440px, 100%);
       }
     }
   </style>
@@ -254,10 +302,13 @@
     <section class="section" id="featured-book">
       <div class="section-inner">
 
-        <h2 class="section-heading">Our First Publication</h2>
+        <h2 class="section-heading">
+          Our First Publication
+        </h2>
 
         <p class="section-intro">
-          A serious exploration of science, evidence, meaning, and the truth that stands beyond matter.
+          A serious exploration of science, evidence, meaning, and the
+          truth that stands beyond matter.
         </p>
 
         <article class="book-card">
@@ -278,19 +329,39 @@
             ></div>
           </div>
 
-          <div class="book-details">
-            <p class="coming-soon">Coming Soon</p>
+          <div>
+            <p class="coming-soon">
+              Coming Soon
+            </p>
 
-            <h3 class="book-title">Fingerprint of Reality</h3>
+            <h3 class="book-title">
+              Fingerprint of Reality
+            </h3>
 
-            <p class="book-subtitle">Science, Design, and the Truth Beyond Matter</p>
+            <p class="book-subtitle">
+              Science, Design, and the Truth Beyond Matter
+            </p>
 
             <div class="book-copy">
-              <p>Is reality the product of blind accident—or does it bear the marks of intention?</p>
 
-              <p><em>Fingerprint of Reality</em> examines evidence drawn from cosmology, mathematics, language, biology, archaeology, quantum computation, morality, and human consciousness.</p>
+              <p>
+                Is reality the product of blind accident—or does it bear
+                the marks of intention?
+              </p>
 
-              <p>What begins as an inquiry into science and design becomes a search for meaning, truth, and the One who stands beyond creation.</p>
+              <p>
+                <em>Fingerprint of Reality</em> examines evidence drawn
+                from cosmology, mathematics, language, biology,
+                archaeology, quantum computation, morality, and human
+                consciousness.
+              </p>
+
+              <p>
+                What begins as an inquiry into science and design becomes
+                a search for meaning, truth, and the One who stands beyond
+                creation.
+              </p>
+
             </div>
           </div>
 
@@ -300,19 +371,32 @@
 
     <section class="section mission">
       <div class="section-inner">
-        <h2 class="section-heading">Our Publishing Mission</h2>
+
+        <h2 class="section-heading">
+          Our Publishing Mission
+        </h2>
 
         <p>
-          Solomon Christian Publishing exists to carry thoughtful, carefully developed Christian work into the world. We seek to publish writing that treats serious questions honestly, defends truth without compromise, respects the reader, and ultimately points beyond human wisdom to Jesus Christ.
+          Solomon Christian Publishing exists to carry thoughtful,
+          carefully developed Christian work into the world. We seek to
+          publish writing that treats serious questions honestly, defends
+          truth without compromise, respects the reader, and ultimately
+          points beyond human wisdom to Jesus Christ.
         </p>
+
       </div>
     </section>
 
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 Solomon Christian Publishing</p>
-    <p>solomonforjesus.org</p>
+    <p>
+      © 2026 Solomon Christian Publishing
+    </p>
+
+    <p>
+      solomonforjesus.org
+    </p>
   </footer>
 
 </body>
