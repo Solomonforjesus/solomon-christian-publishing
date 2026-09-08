@@ -2,7 +2,7 @@ let book,currentIndex=0,contentPackage=null,packagePromise=null;
 const $=s=>document.querySelector(s);
 const stateKey='solomon-reader:fingerprint-of-reality';
 const packageParts=8;
-function save(extra={}){if(!book)return;const prev=JSON.parse(localStorage.getItem(stateKey)||'{}');localStorage.setItem(stateKey,JSON.stringify({...prev,...extra,section:book.sections[currentIndex].id,scrollY:window.scrollY}));}
+function save(extra={}){if(!book)return;const prev=JSON.parse(localStorage.getItem(stateKey)||'{}');localStorage.setItem(stateKey,JSON.stringify({...prev,section:book.sections[currentIndex].id,scrollY:window.scrollY,...extra}));}
 function loadState(){return JSON.parse(localStorage.getItem(stateKey)||'{}')}
 function buildToc(){const nav=$('#tocList');nav.innerHTML='';book.sections.filter(s=>s.toc).forEach(s=>{const a=document.createElement('a');a.href='#'+s.id;a.textContent=s.label;a.dataset.id=s.id;a.onclick=e=>{e.preventDefault();goToId(s.id);closeToc()};nav.appendChild(a)})}
 async function loadContentPackage(){
@@ -29,12 +29,19 @@ async function getSectionHtml(s){
   if(pkg&&typeof pkg[key]==='string')return pkg[key];
   throw new Error(`Section ${key} not found in publication package.`);
 }
+function setSectionUrl(id){history.replaceState(null,'',`${location.pathname}${location.search}#${id}`)}
+function scrollToSectionStart(){
+  document.documentElement.scrollTop=0;
+  document.body.scrollTop=0;
+  window.scrollTo({top:0,left:0,behavior:'auto'});
+}
 async function loadSection(i,restoreScroll=false){
   currentIndex=Math.max(0,Math.min(i,book.sections.length-1));
   const s=book.sections[currentIndex];
-  location.hash=s.id;
+  setSectionUrl(s.id);
   $('#content').setAttribute('aria-busy','true');
   $('#content').innerHTML=`<div class="placeholder"><h1>${escapeHtml(s.label)}</h1><p class="no-indent">Loading…</p></div>`;
+  if(!restoreScroll)scrollToSectionStart();
   let html='';
   try{html=await getSectionHtml(s)}catch(e){html=`<div class="placeholder"><h1>${escapeHtml(s.label)}</h1><p class="no-indent">This section could not be loaded. Please return to Solomon Christian Publishing and try again.</p></div>`;console.error(e)}
   $('#content').innerHTML=html;
@@ -43,8 +50,13 @@ async function loadSection(i,restoreScroll=false){
   $('#prevBtn').disabled=currentIndex===0;
   $('#nextBtn').disabled=currentIndex===book.sections.length-1;
   document.querySelectorAll('.toc a').forEach(a=>a.classList.toggle('active',a.dataset.id===s.id));
-  save({scrollY:0});
-  if(restoreScroll){const st=loadState();requestAnimationFrame(()=>scrollTo(0,st.scrollY||0))}else scrollTo(0,0);
+  if(restoreScroll){
+    const st=loadState();
+    requestAnimationFrame(()=>window.scrollTo({top:st.scrollY||0,left:0,behavior:'auto'}));
+  }else{
+    save({scrollY:0});
+    requestAnimationFrame(()=>{scrollToSectionStart();requestAnimationFrame(scrollToSectionStart)});
+  }
   updateProgress();
 }
 function escapeHtml(v){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
@@ -71,5 +83,6 @@ function changeFont(delta){const st=loadState();let n=st.fontSize||parseInt(getC
     $('#fontUp').onclick=()=>changeFont(1);$('#fontDown').onclick=()=>changeFont(-1);
     $('#search').oninput=e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('.toc a').forEach(a=>a.style.display=a.textContent.toLowerCase().includes(q)?'block':'none')};
     window.addEventListener('scroll',()=>{updateProgress();save()},{passive:true});
+    window.addEventListener('keydown',e=>{if(e.key==='Escape')closeToc()});
   }catch(e){$('#content').innerHTML='<div class="placeholder"><h1>Reader unavailable</h1><p class="no-indent">The book reader could not initialize. Please refresh the page.</p></div>';console.error(e)}
 })();
