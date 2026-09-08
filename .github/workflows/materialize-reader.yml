@@ -1,0 +1,111 @@
+name: Materialize Solomon Reader sections
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct and validate all reader sections
+        shell: python
+        run: |
+          import base64, gzip, json, pathlib, sys
+
+          root = pathlib.Path('reader/fingerprint')
+          out = root / 'content'
+          out.mkdir(parents=True, exist_ok=True)
+
+          expected = [
+              'title.html','copyright.html','dedication.html','authors-note.html','prologue.html',
+              *[f'chapter-{i:02d}.html' for i in range(1,17)],
+              'afterword.html','appendix-a.html','appendix-b.html','sources.html',
+              'acknowledgments.html','about-author.html'
+          ]
+
+          def try_package(prefix):
+              parts=[]
+              for i in range(8):
+                  p=root/f'{prefix}.{i}'
+                  if not p.exists():
+                      return None, f'{prefix}: missing part {i}'
+                  parts.append(p.read_text(encoding='utf-8'))
+              try:
+                  b64=''.join(parts)
+                  b64=''.join(b64.split())
+                  raw=gzip.decompress(base64.b64decode(b64))
+                  package=json.loads(raw.decode('utf-8'))
+              except Exception as exc:
+                  return None, f'{prefix}: decode failed: {exc}'
+              if not isinstance(package, dict):
+                  return None, f'{prefix}: decoded payload is not an object'
+              missing=[name for name in expected if name not in package or not isinstance(package[name],str) or not package[name].strip()]
+              if missing:
+                  return None, f'{prefix}: missing/empty sections: {missing}'
+              return package, f'{prefix}: valid 27-section package'
+
+          diagnostics=[]
+          package=None
+          source=None
+          for prefix in ('payload2','content.gz.b64'):
+              candidate, message=try_package(prefix)
+              diagnostics.append(message)
+              if candidate is not None:
+                  package=candidate
+                  source=prefix
+                  break
+
+          print('\n'.join(diagnostics))
+          if package is None:
+              sys.exit('No valid complete Fingerprint publication package was found.')
+
+          for name in expected:
+              (out/name).write_text(package[name],encoding='utf-8')
+
+          print(f'Materialized {len(expected)} verified sections from {source}.')
+
+      - name: Verify manifest and key publication invariants
+        shell: python
+        run: |
+          import json, pathlib, re, sys
+          root=pathlib.Path('reader/fingerprint')
+          book=json.loads((root/'book.json').read_text(encoding='utf-8'))
+          sections=book.get('sections',[])
+          if len(sections)!=27:
+              sys.exit(f'Expected 27 manifest sections, found {len(sections)}')
+          missing=[]
+          for s in sections:
+              p=root/s['file']
+              if not p.exists() or p.stat().st_size==0:
+                  missing.append(str(p))
+          if missing:
+              sys.exit('Missing reader files: '+', '.join(missing))
+          corpus='\n'.join((root/s['file']).read_text(encoding='utf-8') for s in sections)
+          if '20,000' in corpus or '20000' in corpus:
+              sys.exit('Unexpected 20,000 quantum-count occurrence found.')
+          if '16,000' not in corpus:
+              sys.exit('Locked 16,000 quantum-count occurrence not found.')
+          print('QA passed: 27/27 files present; locked 16,000 count preserved.')
+
+      - name: Commit materialized section files when needed
+        shell: bash
+        run: |
+          if git diff --quiet -- reader/fingerprint/content; then
+            echo "Reader sections already materialized; no commit required."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reader/fingerprint/content
+          git commit -m "Materialize verified Solomon Reader sections"
+          git push
