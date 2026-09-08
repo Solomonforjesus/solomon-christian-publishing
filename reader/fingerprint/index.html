@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Solomon Reader — Fingerprint of Reality</title>
+<link rel="stylesheet" href="reader.css">
+</head>
+<body>
+<header class="topbar">
+  <button id="tocBtn" aria-label="Open table of contents">☰</button>
+  <div class="brand"><strong>Solomon Reader</strong><span id="bookTitle"></span></div>
+  <div class="controls">
+    <button id="fontDown" aria-label="Decrease text size">A−</button>
+    <button id="fontUp" aria-label="Increase text size">A+</button>
+    <button id="themeBtn" aria-label="Toggle theme">◐</button>
+  </div>
+</header>
+<div class="progress"><div id="progressBar"></div></div>
+<aside id="toc" class="toc" aria-hidden="true">
+  <div class="toc-head"><strong>Contents</strong><button id="tocClose" aria-label="Close table of contents">×</button></div>
+  <input id="search" type="search" placeholder="Search sections…" aria-label="Search sections">
+  <nav id="tocList"></nav>
+</aside>
+<div id="scrim" class="scrim"></div>
+<main class="reader-shell">
+  <article id="content" class="book-content" tabindex="-1"></article>
+  <nav class="chapter-nav" aria-label="Section navigation">
+    <button id="prevBtn">← Previous</button>
+    <button id="nextBtn">Next →</button>
+  </nav>
+</main>
+<script src="reader.js"></script>
+</body>
+</html>
