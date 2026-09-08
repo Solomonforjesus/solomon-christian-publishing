@@ -1,0 +1,316 @@
+<div class="chapter-kicker">Chapter Eleven</div>
+<h1>The Scales Before the Weight</h1>
+<p class="no-indent">The first honest machine was not the large one.</p>
+<p>That mattered.</p>
+<p>By then, we had spent enough time talking about the quantum run that the danger had become obvious. Not the technical danger. The moral one. A man can become so eager for a result that he stops noticing when he has started arranging the room to favor it.</p>
+<p>That was why I asked everyone to come to the house.</p>
+<p>Not a retreat house. Not a conference room. Not a rented space with clean walls and borrowed seriousness. My house. My table. My coffee. My floorboards creaking under the weight of people I trusted enough to argue with.</p>
+<p>The setting mattered because the work mattered.</p>
+<p>Kathryn had cleared the dining room before anyone arrived. She did not make a speech about it. She simply moved what needed moving, set out mugs, put a pot of coffee within reach, and gave me the look a good wife gives when she knows her husband is about to carry something heavier than he admits.</p>
+<p>The long table held laptops, notebooks, printed appendices, a few pens, two marker sets, and enough loose paper to make the whole thing look less like a scientific meeting than a family trying to settle an estate.</p>
+<p>In a way, that was not far off.</p>
+<p>We were trying to decide how honestly we had weighed what reality had shown us.</p>
+<p>Kenji Yokosuka arrived with a laptop under one arm and a stack of printouts under the other. He looked around the room, took in the table, the whiteboard I had dragged in from the office, and the team settling into chairs.</p>
+<p>“This will work,” he said.</p>
+<p>Coming from Kenji, that was high praise.</p>
+<p>Matthew sat near the end of the table with his notes arranged in careful layers. Veronica had already taken out a pencil and begun squaring the corner of her paper with the table edge. Dawn had a yellow legal pad open, one hand resting on it as if language might try to leave before she caught it. Hal had brought a folder thick with photographs and source notes. Steve leaned back slightly, watching the room the way astronomers watch the sky: patient, alert, unwilling to rush a pattern. Scott Tyson sat quietly, hands folded, prepared to ask the question no one else wanted to ask.</p>
+<p>Pastor Charles came last.</p>
+<p>He took the chair nearest the wall, not the head of the table. That was his way. Present, but not performing. Available, but not controlling the room.</p>
+<p>I stood by the whiteboard and wrote three words:</p>
+<p>Small. Known. Repeatable.</p>
+<p>Kenji nodded once.</p>
+<p>“Good,” he said. “Start there.”</p>
+<p>So we did.</p>
+<h2><strong>The Toy Problem</strong></h2>
+<p>Kenji did not begin with God, design, or any of the evidence we had gathered. He began with a puzzle that did not care what any of us believed.</p>
+<p>That was the point.</p>
+<p>“If the test only works when we already like the answer,” he said, “then it is not a test.”</p>
+<p>He opened his laptop and sent the display to the screen. A simple graph appeared: a few dots connected by lines.</p>
+<p>“Imagine switches,” he said. “Each switch can be up or down. The lines between switches are wires. The puzzle is to arrange the switches so the most wires are cut between opposite positions.”</p>
+<p>“That’s MAX-CUT?” Steve asked.</p>
+<p>“In plain clothes,” Kenji said.</p>
+<p>MAX-CUT is one of those problems that sounds almost childish until it grows. Take a set of connected points. Divide them into two groups. Count how many connections cross from one group to the other. Then find the division that cuts the most connections.</p>
+<p>For five points, a patient person can check every answer.</p>
+<p>For larger graphs, the number of possible arrangements grows quickly.</p>
+<p>That makes MAX-CUT useful for testing optimization methods. It is small enough to explain, serious enough to matter, and clean enough to verify.</p>
+<p>Kenji liked it because it gave the machine a puzzle with a known standard.</p>
+<p>“The first job,” he said, “is not to impress us. The first job is to show the pipeline behaves.”</p>
+<p>He wrote another line on the board:</p>
+<p>Behavior before significance.</p>
+<p>I copied it into my notebook.</p>
+<p>The quantum method we tested was called QAOA, the Quantum Approximate Optimization Algorithm. The name sounds like a locked door, but the basic idea can be explained without pretending everyone at the table is a physicist. QAOA was not the argument itself. It was the tool we used to test whether Amplitude Weighted Logic, or AWL, could be treated with discipline rather than instinct.</p>
+<p>First, the circuit prepares the qubits in a broad starting state. It does not choose one answer too early. Then it applies layers of operations controlled by adjustable angles. Those angles guide the circuit toward better answers. At the end, the qubits are measured, and the machine returns bitstrings—patterns of zeros and ones. Each bitstring represents one possible arrangement of the switches. The best bitstring is the one that cuts the most wires.</p>
+<p>Kenji disliked mystical language around quantum computing, but he allowed one metaphor.</p>
+<p>“It is choreography,” he said. “Not magic. Choreography. You prepare the dancers, apply the steps, adjust the timing, and measure where they land.”</p>
+<p>Dawn smiled faintly and wrote something down.</p>
+<p>Scott looked at the graph. “And how do we know it is not merely giving us an answer that sounds impressive?”</p>
+<p>“We check it,” Kenji said. “That is why we start small.”</p>
+<p>For the early proof-of-concept, the graph had five nodes. Small enough to solve exactly. Large enough to let the workflow breathe. The circuit depth was shallow. The number of shots was fixed. The random seed was fixed. The simulator was declared. Nothing was hidden behind trust me.</p>
+<p>Build the circuit.</p>
+<p>Transpile it.</p>
+<p>Run it.</p>
+<p>Collect the counts.</p>
+<p>Score the bitstrings.</p>
+<p>Compare against classical methods.</p>
+<p>That was the entire point.</p>
+<p>Not victory.</p>
+<p>Verification.</p>
+<h2><strong>Simulation Before Hardware</strong></h2>
+<p>Kenji made the next distinction slowly, as though laying a foundation stone.</p>
+<p>“Simulation is not hardware,” he said.</p>
+<p>No one argued.</p>
+<p>He looked at me anyway.</p>
+<p>“Walter?”</p>
+<p>“Simulation is not hardware,” I said.</p>
+<p>He nodded. “Good. Now we can use simulation honestly.”</p>
+<p>The first proof-of-concept used Qiskit, an open-source quantum computing software development kit, along with its AerSimulator. This was not an IBM endorsement or partnership. It was simply the software environment used for the initial test.</p>
+<p>That meant we were not claiming that a physical quantum processor had carried the weight of the result. Not yet. We were testing the workflow. We were asking whether the pipeline made sense before any real machine was asked to participate.</p>
+<p>That may sound modest.</p>
+<p>It was.</p>
+<p>But modesty is not weakness in scientific work. Often it is the only way to keep the work from becoming propaganda.</p>
+<p>The simulator let us test the full path: graph generation, circuit construction, parameter search, measurement, scoring, and comparison against classical baselines. For the small MAX-CUT instance, the quantum simulation found an optimal bitstring. A greedy local search also found an optimum. A brute-force check confirmed the exact optimum.</p>
+<p>Veronica leaned forward. “So the result was not surprising.”</p>
+<p>“No,” Kenji said. “And that is why it is useful.”</p>
+<p>That answer pleased her.</p>
+<p>If the toy problem had a known answer and the pipeline could not find it, the pipeline was broken. If the pipeline could find it, then we had earned the right to ask the next question.</p>
+<p>Not the final question.</p>
+<p>The next one.</p>
+<p>I wrote in my notebook:</p>
+<p>The machine does not have to impress us.<br>It has to behave.</p>
+<p>Pastor Charles read the line from where he sat.</p>
+<p>“That may preach later,” he said.</p>
+<p>Kenji pointed at him.</p>
+<p>“Later.”</p>
+<p>A small laugh moved around the table, and then the room settled again.</p>
+<h2><strong>Ideal and Noisy Rooms</strong></h2>
+<p>The next tests widened the frame.</p>
+<p>The graphs grew from five nodes toward eight. The QAOA depth moved from one layer to two. The runs compared ideal simulation against noisy simulation, because real quantum devices do not operate in perfect silence.</p>
+<p>Noise is not a side issue in quantum computing.</p>
+<p>It is the room.</p>
+<p>Qubits are fragile. Their states can be disturbed. Gates have errors. Measurements have errors. The system does not sit politely while the researcher asks questions. It leaks, jitters, decoheres, and reminds everyone that the physical world is not a whiteboard.</p>
+<p>That is why noisy simulation matters.</p>
+<p>An ideal simulator tells you what should happen if the room were perfect. A noisy simulator asks what may happen when the room behaves more like actual hardware.</p>
+<p>The difference between those two is not a technical nuisance.</p>
+<p>It is part of the truth.</p>
+<p>Matthew tapped his pen once on the table. “That sounds familiar.”</p>
+<p>Kenji looked at him. “It should.”</p>
+<p>Matthew’s world was biology. He understood fidelity, failure, repair, and environment. A living system preserves information only because conditions are structured enough for that preservation to happen. Noise must be managed. Error must be corrected. The room matters.</p>
+<p>Kenji had the same instinct in physics.</p>
+<p>“You do not command coherence by wishing for it,” he said. “You prepare conditions where coherence can survive long enough to do work.”</p>
+<p>That sentence crossed the table and landed in more than one discipline.</p>
+<p>Biology.</p>
+<p>Physics.</p>
+<p>Computation.</p>
+<p>The noisy simulations did not ruin the small tests. In most cases, the best noisy results matched the ideal results for the graph sizes being tested. That did not mean noise was irrelevant. It meant the problems were still small enough and the tests simple enough for the signal to survive.</p>
+<p>Kenji warned against saying more.</p>
+<p>“Small graphs are forgiving,” he said. “Do not turn forgiveness into a law of nature.”</p>
+<p>So we did not.</p>
+<p>The notes were careful. The noisy tests served as scaling and robustness checks, not as direct evidence for Directed versus Undirected. They proved that our workflow could be stressed modestly without collapsing. They did not prove that the final evidential claim was true.</p>
+<p>That restraint mattered.</p>
+<p>A reader may not understand every quantum gate, but he can understand the moral shape of the method.</p>
+<p>Do not exaggerate.</p>
+<p>Do not hide the weakness.</p>
+<p>Do not confuse a successful rehearsal with opening night.</p>
+<h2><strong>The Bayesian Skeleton</strong></h2>
+<p>The quantum run still needed a body.</p>
+<p>MAX-CUT tested the machinery of optimization. But the larger project was not about cutting wires on a toy graph. It was about weighing evidence.</p>
+<p>For that, Kenji returned to the framework we had been shaping.</p>
+<p>Directed.</p>
+<p>Undirected.</p>
+<p>Not Christian versus atheist as slogans.</p>
+<p>Not believer versus skeptic as tribes.</p>
+<p>Directed versus Undirected as explanatory priors.</p>
+<p>The Directed model said that reality is not accidental at the deepest level. It allowed the possibility that intention stands behind the laws, conditions, intelligibility, information, consciousness, moral awareness, and meaning-bearing structure of the world.</p>
+<p>The Undirected model said that reality is unguided. Whatever order we observe must be explained by impersonal processes, chance, necessity, selection effects, and no deeper purpose built into the foundation.</p>
+<p>Scott raised a hand slightly. “Then we need to state both in language their own defenders would recognize.”</p>
+<p>“Yes,” Kenji said. “Exactly.”</p>
+<p>That mattered.</p>
+<p>No sneering at the Undirected model.</p>
+<p>No smuggling Christian doctrine into the Directed model before the calculation began.</p>
+<p>“This is not the Gospel yet,” Kenji said.</p>
+<p>Pastor Charles nodded slowly. He did not seem offended by the restraint. If anything, he seemed grateful for it.</p>
+<p>“The Gospel does not need us to sneak it through the side door,” he said.</p>
+<p>The room went quiet for a moment.</p>
+<p>Then Kenji nodded.</p>
+<p>“Good. Then we keep this question narrow.”</p>
+<p>The Christian claim would have to come through history, Scripture, sin, Resurrection, and personhood. The evidence algorithm had a narrower purpose. It was not built to preach. It was built to ask whether the accumulated evidence was more expected under a reality with intention or a reality without it.</p>
+<p>That distinction protected the work.</p>
+<p>The mathematical skeleton was Bayesian.</p>
+<p>Bayesian reasoning asks how evidence should update belief. You begin with declared prior probabilities. You examine evidence. Then you ask how likely that evidence is under one explanation compared with another. The result is not magic. It is disciplined updating.</p>
+<p>If evidence is equally expected under both explanations, it does little.</p>
+<p>If evidence is much more expected under one explanation, it moves the balance.</p>
+<p>If evidence is weak, disputed, or dependent on another piece of evidence already counted, it must be handled carefully or down-weighted.</p>
+<p>That last part was crucial.</p>
+<p>The easiest way to build a dishonest cumulative case is to count the same evidence twice under different names.</p>
+<p>Kenji called that “paying yourself with your own wallet.”</p>
+<p>Dawn laughed softly. “That phrase is ugly enough to be useful.”</p>
+<p>“It is supposed to be ugly,” Kenji said.</p>
+<p>We built guardrails against it.</p>
+<p>Evidence modules would be declared in advance. Priors would be stated. Assumptions would be documented. Weak domains would carry more uncertainty. Overlapping domains would be checked for double-counting. The framework would be written down before the result was known.</p>
+<p>That was the pre-registration principle.</p>
+<p>Tie your hands before you are tempted to use them.</p>
+<h2><strong>Life-Windows</strong></h2>
+<p>The next proof-of-concept was not about graph puzzles.</p>
+<p>It was about life-permitting windows.</p>
+<p>This was closer to the heart of the book, but still not the final evidence run. We used toy models because toy models can teach without pretending to be the whole world.</p>
+<p>Kenji drew a line on the whiteboard from zero to one.</p>
+<p>“Imagine one constant,” he said. “Normalized. No units. Just a number between zero and one.”</p>
+<p>Then he marked a narrow window near the center.</p>
+<p>“Life is possible here.”</p>
+<p>“How narrow?” Steve asked.</p>
+<p>“For the toy test, six percent of the line.”</p>
+<p>Under an Undirected prior, the value is spread uniformly across the whole interval. No preference. No target. The chance of landing in the life-window is simply the window width.</p>
+<p>Six percent.</p>
+<p>Under a Directed prior, the distribution is mildly concentrated near the life-centered region. Not infinitely. Not absurdly. Not with a thumb crushing the scale. Just a mathematically declared bias toward viability.</p>
+<p>Then the question becomes simple:</p>
+<p>How much probability mass does each prior place inside the life-window?</p>
+<p>For the one-parameter toy test, the Undirected prior gave about 0.06. The Directed prior gave about 0.294. Divide the second by the first, and the Bayes factor is about 4.9.</p>
+<p>“That does not prove God,” Kenji said immediately.</p>
+<p>“No one said it did,” Hal answered.</p>
+<p>Kenji glanced around the table. “Someone will. So we say first what it does not say.”</p>
+<p>That was fair.</p>
+<p>The one-parameter toy model did not prove God.</p>
+<p>It did not prove Christianity.</p>
+<p>It did not even prove the fine-tuning argument in full.</p>
+<p>It demonstrated the mechanics.</p>
+<p>A narrow viable window is more expected under a prior that favors viability than under one that has no such preference. That is not theological manipulation. It is the definition of the priors being tested.</p>
+<p>The deeper issue is what happens when constraints accumulate.</p>
+<p>One narrow window matters.</p>
+<p>Two matter more.</p>
+<p>Three, four, and five begin to show the compounding effect.</p>
+<p>In the toy models, each added life-window made the Undirected joint probability shrink multiplicatively, while the Directed prior retained more mass near the viable regions. The Bayes factor climbed from about 4.9 for one parameter, to about 20 for two, about 69 for three, about 449 for four, and about 2001 for five.</p>
+<p>Veronica’s pencil stopped moving.</p>
+<p>Dawn looked up from her pad.</p>
+<p>Steve leaned forward.</p>
+<p>Scott’s expression did not change, but I saw his fingers tighten slightly around his pen.</p>
+<p>The room understood the point.</p>
+<p>Evidence compounds.</p>
+<p>Not because we bully it into agreement, but because independent constraints do not add like decorations. They multiply pressure. If life requires several conditions at once, the explanatory burden changes. A single coincidence may be dismissed. A stack of coordinated conditions asks for a better account.</p>
+<p>Kenji did not let the room float too high.</p>
+<p>“Toy model,” he said.</p>
+<p>I nodded. “Toy model.”</p>
+<p>“Synthetic priors.”</p>
+<p>“Synthetic priors.”</p>
+<p>“Rectangular windows.”</p>
+<p>“Rectangular windows.”</p>
+<p>“Independence assumed.”</p>
+<p>“Independence assumed.”</p>
+<p>He smiled faintly.</p>
+<p>“Good. Now you may say evidence compounds.”</p>
+<p>That was the sentence he allowed.</p>
+<p>And it was enough.</p>
+<h2><strong>The Machine Named Brisbane</strong></h2>
+<p>At some point, the work had to move beyond local simulation.</p>
+<p>Not because simulation was worthless.</p>
+<p>Because simulation was not the same thing as submitting circuits to a real quantum backend.</p>
+<p>IBM’s quantum platform gave researchers access to cloud-based quantum processors. The machine relevant to our work was the backend named ibm_brisbane, part of IBM’s family of superconducting quantum processors. The name mattered for our record because names make events traceable. It did not mean IBM endorsed the work, and it did not need to be romanticized. Kenji warned me about that immediately.</p>
+<p>A name like Brisbane carries geography in the imagination. It sounds like distance, sunlight, ocean air, and a circuit humming somewhere on the far side of the world. But the name of a backend is not a travel itinerary. It does not prove where the processor sits. It proves which machine the job addressed.</p>
+<p>Reality first.</p>
+<p>Romance second, if at all.</p>
+<p>So in the record we called it what it was: IBM’s quantum backend named Brisbane.</p>
+<p>A real machine.</p>
+<p>A cloud-accessed quantum processor.</p>
+<p>Not a metaphor.</p>
+<p>Not a sermon prop.</p>
+<p>Not the final authority.</p>
+<p>A tool.</p>
+<p>That alone was enough.</p>
+<p>For most of my life, quantum computer had sounded like the kind of phrase that belonged to speculative magazines and documentaries narrated over blue light. Now it was a backend name in a queue, a target for transpilation, a physical architecture with constraints, noise, gate maps, calibration data, and jobs waiting their turn.</p>
+<p>The grandeur was not diminished by the practical details.</p>
+<p>It was increased by them.</p>
+<p>Real science is often less theatrical than people expect. It lives in error messages, version numbers, shot counts, backend status pages, queue delays, and the stubborn discipline of saving logs so someone else can rerun the work after the excitement has faded.</p>
+<p>That was exactly the kind of gravitas this project needed.</p>
+<p>Not fog.</p>
+<p>Record.</p>
+<h2><strong>The Rule of No Oracles</strong></h2>
+<p>The closer we came to real hardware, the more careful the room became.</p>
+<p>Kenji wrote a sentence at the top of the whiteboard and boxed it:</p>
+<p>The machine is not an oracle.</p>
+<p>Then he drew three lines beneath it.</p>
+<p>It can run circuits.<br>It can return measurements.<br>It can reveal whether our method performs as intended.</p>
+<p>“That is all,” he said.</p>
+<p>“All for now,” Matthew added.</p>
+<p>Kenji pointed at him. “Yes. All for now.”</p>
+<p>He was not minimizing the achievement. He was protecting it.</p>
+<p>A quantum processor does not pronounce metaphysical truth. It follows instructions. It prepares quantum states, applies gates, evolves under constraints, and returns measurement outcomes. Those outcomes must be interpreted by human beings who have already decided what question the circuit was built to ask.</p>
+<p>That meant our responsibility increased, not decreased.</p>
+<p>The machine would not save us from bad framing.</p>
+<p>It would not rescue dishonest priors.</p>
+<p>It would not correct lazy interpretation.</p>
+<p>It would not turn a weak analogy into a strong argument.</p>
+<p>It would not transform a toy model into final evidence by the mere fact of being quantum.</p>
+<p>Kenji said that last point twice.</p>
+<p>“Quantum does not make weak thinking strong.”</p>
+<p>That line went in my notebook.</p>
+<p>It should probably be taped above every laboratory door.</p>
+<p>The method had to be honest before the run. The priors had to be declared before the result. The bins had to be defined before the numbers appeared. The uncertainty had to be reported before anyone knew whether it would make the conclusion look less impressive.</p>
+<p>This was not only scientific discipline.</p>
+<p>It was moral discipline.</p>
+<p>Methods are moral documents.</p>
+<p>They reveal what kind of people we are when no one has yet praised us.</p>
+<p>Scott looked up at that.</p>
+<p>“That sentence belongs,” he said.</p>
+<p>So I wrote it on the board.</p>
+<p>Methods are moral documents.</p>
+<p>No one spoke for a few seconds after that.</p>
+<h2><strong>What We Would Say</strong></h2>
+<p>By the end of the night, the chapter had almost written its own conclusion.</p>
+<p>Not the final calculation.</p>
+<p>Not the victory.</p>
+<p>Not yet.</p>
+<p>The conclusion was narrower and, in some ways, more important.</p>
+<p>We had shown that the pipeline behaved on known problems, survived modest noise, and could make our assumptions and probability models explicit. We had also identified the real quantum hardware the next stage would face.</p>
+<p>We had written down what the machine could not do.</p>
+<p>It could not prove God.</p>
+<p>It could not preach Christ.</p>
+<p>It could not forgive sin.</p>
+<p>It could not tell a human being why he felt ashamed, why he longed for justice, or why beauty hurt.</p>
+<p>But it could help weigh a defined comparison.</p>
+<p>It could test whether a structured model behaved as claimed.</p>
+<p>It could force us to declare our assumptions.</p>
+<p>It could expose whether a conclusion survived uncertainty or collapsed under it.</p>
+<p>That was enough.</p>
+<p>More than enough.</p>
+<p>Pastor Charles leaned back in his chair. His coffee had gone cold. Mine had too.</p>
+<p>“You have built a scale,” he said. “Now you must decide whether you are willing to let it weigh what you love.”</p>
+<p>That was the question beneath the whole night. It reached farther into me than I wanted to admit. I believed the case was strong. I wanted it to be strong. And those two statements were not necessarily the same thing.</p>
+<p>If Veritology meant anything, I had to be willing to discover the difference.</p>
+<p>I looked around my dining room.</p>
+<p>At Kenji, who had taught us restraint.<br>At Matthew, who understood information as something families can feel.<br>At Veronica, who trusted clean structure more than persuasive language.<br>At Dawn, who heard meaning inside symbols.<br>At Hal, who knew that evidence sometimes survives in fragments.<br>At Steve, who had spent his life looking up and refusing to call order ordinary.<br>At Scott, who knew the conscience has its own testimony.<br>At Pastor Charles, who loved the Gospel enough not to force it into a machine.</p>
+<p>This was not a crowd.</p>
+<p>It was a circle of witnesses.</p>
+<p>And the work had become serious enough that friendship alone was no longer sufficient. We needed method. We needed restraint. We needed a process that could bruise our favorite theory if truth required it.</p>
+<p>Kenji stood and capped the marker.</p>
+<p>“Next time,” he said, “the scale gets weight.”</p>
+<p>No one answered quickly.</p>
+<p>We all knew what he meant.</p>
+<h2><strong>Before the Run</strong></h2>
+<p>After they left, the house felt larger than before.</p>
+<p>Kathryn moved quietly through the kitchen, gathering cups, rinsing spoons, closing drawers with the gentleness of someone who understood that not every kind of work announces itself as work.</p>
+<p>“You all right?” she asked.</p>
+<p>“Yes,” I said.</p>
+<p>Then, after a moment, “Mostly.”</p>
+<p>She looked toward the dining room. The whiteboard still stood there, crowded with phrases that would have looked strange to anyone outside the investigation.</p>
+<p>Directed.<br>Undirected.<br>Prior.<br>Evidence.<br>Update.<br>Small. Known. Repeatable.<br>No oracles.<br>Methods are moral documents.<br>The scale before the weight.</p>
+<p>Kathryn read the board without asking me to explain all of it.</p>
+<p>Then she said, “Looks like you’re trying very hard not to fool yourself.”</p>
+<p>That may have been the best summary of the night.</p>
+<p>“Yes,” I said. “That is exactly what we are trying to do.”</p>
+<p>The larger calculation waited ahead. The official run would come next. There would be circuits, backend selection, shots, transpilation, counts, logs, failures, reruns, and the quiet terror of letting a locked method speak without interference.</p>
+<p>But not tonight.</p>
+<p>Tonight belonged to preparation.</p>
+<p>A child learning to walk does not need a stadium. He needs a floor that holds.</p>
+<p>That was what this chapter gave us.</p>
+<p>A floor.</p>
+<p>The preliminary work had done what it needed to do: given us a tested method, explicit assumptions, and a real machine to face.</p>
+<p>None of that was the final evidence.</p>
+<p>It was the discipline before the evidence.</p>
+<p>And discipline matters because the human heart is clever.</p>
+<p>It knows how to cheat softly.</p>
+<p>It knows how to call desire conviction.</p>
+<p>It knows how to call exaggeration courage.</p>
+<p>It knows how to call a preferred outcome truth.</p>
+<p>That is why we needed the scale before the weight.</p>
+<p>I picked up my notebook and wrote the last line of the night:</p>
+<p>We are not asking the machine to create north.<br>We are asking whether the compass moves when the evidence is allowed near it.</p>
+<p>Then I closed the notebook.</p>
