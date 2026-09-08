@@ -9,7 +9,7 @@ async function loadContentPackage(){
   if(contentPackage)return contentPackage;
   if(packagePromise)return packagePromise;
   packagePromise=(async()=>{
-    const parts=await Promise.all(Array.from({length:packageParts},(_,i)=>fetch(`content.gz.b64.${i}`,{cache:'force-cache'}).then(r=>{if(!r.ok)throw new Error(`package part ${i} missing`);return r.text()})));
+    const parts=await Promise.all(Array.from({length:packageParts},(_,i)=>fetch(`payload2.${i}`,{cache:'force-cache'}).then(r=>{if(!r.ok)throw new Error(`package part ${i} missing`);return r.text()})));
     const b64=parts.join('').replace(/\s+/g,'');
     const binary=atob(b64);
     const bytes=new Uint8Array(binary.length);
