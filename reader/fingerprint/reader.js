@@ -23,10 +23,6 @@ async function loadContentPackage(){
   return packagePromise;
 }
 async function getSectionHtml(s){
-  try{
-    const r=await fetch(s.file,{cache:'no-store'});
-    if(r.ok)return await r.text();
-  }catch(e){}
   const pkg=await loadContentPackage();
   const key=s.file.split('/').pop();
   if(pkg&&typeof pkg[key]==='string')return pkg[key];
@@ -38,7 +34,7 @@ async function loadSection(i,restoreScroll=false){
   location.hash=s.id;
   $('#content').innerHTML=`<div class="placeholder"><h1>${escapeHtml(s.label)}</h1><p class="no-indent">Loading…</p></div>`;
   let html='';
-  try{html=await getSectionHtml(s)}catch(e){html=`<div class="placeholder"><h1>${escapeHtml(s.label)}</h1><p class="no-indent">This section could not be loaded. The publication package remains protected from release until this error is corrected.</p></div>`;console.error(e)}
+  try{html=await getSectionHtml(s)}catch(e){html=`<div class="placeholder"><h1>${escapeHtml(s.label)}</h1><p class="no-indent">This section could not be loaded. Please return to Solomon Christian Publishing and try again.</p></div>`;console.error(e)}
   $('#content').innerHTML=html;
   $('#content').focus({preventScroll:true});
   $('#prevBtn').disabled=currentIndex===0;
@@ -56,6 +52,7 @@ function closeToc(){$('#toc').classList.remove('open');$('#scrim').classList.rem
 function changeFont(delta){const st=loadState();let n=st.fontSize||parseInt(getComputedStyle(document.documentElement).getPropertyValue('--size'))||20;n=Math.min(26,Math.max(16,n+delta));document.documentElement.style.setProperty('--size',n+'px');save({fontSize:n})}
 (async()=>{
   book=await fetch('book.json',{cache:'no-store'}).then(r=>r.json());
+  await loadContentPackage();
   $('#bookTitle').textContent=book.title;
   buildToc();
   const st=loadState();
