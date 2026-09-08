@@ -1,0 +1,1 @@
+Solomon Reader corpus loader migration in progress. Production content remains isolated on fingerprint-reader-production until QA is complete.
