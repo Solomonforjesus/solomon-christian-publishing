@@ -2,8 +2,29 @@ let book,currentIndex=0,contentPackage=null,packagePromise=null;
 const $=s=>document.querySelector(s);
 const stateKey='solomon-reader:fingerprint-of-reality';
 const packageParts=8;
-function save(extra={}){if(!book)return;const prev=JSON.parse(localStorage.getItem(stateKey)||'{}');localStorage.setItem(stateKey,JSON.stringify({...prev,section:book.sections[currentIndex].id,scrollY:window.scrollY,...extra}));}
 function loadState(){return JSON.parse(localStorage.getItem(stateKey)||'{}')}
+function save(extra={}){
+  if(!book)return;
+  const prev=loadState();
+  const s=book.sections[currentIndex];
+  const next={...prev,...extra};
+  if(s&&!s.special){
+    next.section=s.id;
+    next.scrollY=window.scrollY;
+    next.resumeSection=s.id;
+    next.resumeScrollY=window.scrollY;
+  }
+  localStorage.setItem(stateKey,JSON.stringify(next));
+}
+function getResumeState(){
+  const st=loadState();
+  const id=st.resumeSection||st.section;
+  if(!id)return null;
+  const i=book.sections.findIndex(s=>s.id===id&&!s.special);
+  if(i<0)return null;
+  const y=st.resumeSection?st.resumeScrollY:st.scrollY;
+  return {index:i,scrollY:y||0};
+}
 function buildToc(){const nav=$('#tocList');nav.innerHTML='';book.sections.filter(s=>s.toc).forEach(s=>{const a=document.createElement('a');a.href='#'+s.id;a.textContent=s.label;a.dataset.id=s.id;a.onclick=e=>{e.preventDefault();goToId(s.id);closeToc()};nav.appendChild(a)})}
 async function loadContentPackage(){
   if(contentPackage)return contentPackage;
@@ -23,7 +44,11 @@ async function loadContentPackage(){
   return packagePromise;
 }
 async function getSectionHtml(s){
-  if(s.special==='front-cover')return `<div class="cover-page"><img src="${book.cover}" alt="Front cover of ${escapeHtml(book.title)} by ${escapeHtml(book.author)}"></div>`;
+  if(s.special==='front-cover'){
+    const resume=getResumeState();
+    const resumeButton=resume?'<button id="resumeReading" class="resume-reading" type="button">Resume Reading</button>':'';
+    return `<div class="cover-page"><img src="${book.cover}" alt="Front cover of ${escapeHtml(book.title)} by ${escapeHtml(book.author)}">${resumeButton}</div>`;
+  }
   if(s.special==='back-cover')return `<div class="cover-page"><img src="${book.backCover}" alt="Back cover of ${escapeHtml(book.title)} by ${escapeHtml(book.author)}"></div>`;
   try{const direct=await fetch(s.file,{cache:'no-store'});if(direct.ok)return await direct.text()}catch(e){}
   const pkg=await loadContentPackage();
@@ -37,7 +62,7 @@ function scrollToSectionStart(){
   document.body.scrollTop=0;
   window.scrollTo({top:0,left:0,behavior:'auto'});
 }
-async function loadSection(i,restoreScroll=false){
+async function loadSection(i,restoreScroll=false,resumeScroll=null){
   currentIndex=Math.max(0,Math.min(i,book.sections.length-1));
   const s=book.sections[currentIndex];
   setSectionUrl(s.id);
@@ -52,11 +77,16 @@ async function loadSection(i,restoreScroll=false){
   $('#prevBtn').disabled=currentIndex===0;
   $('#nextBtn').disabled=currentIndex===book.sections.length-1;
   document.querySelectorAll('.toc a').forEach(a=>a.classList.toggle('active',a.dataset.id===s.id));
+  const resumeBtn=$('#resumeReading');
+  if(resumeBtn)resumeBtn.onclick=()=>{
+    const resume=getResumeState();
+    if(resume)loadSection(resume.index,true,resume.scrollY);
+  };
   if(restoreScroll){
-    const st=loadState();
-    requestAnimationFrame(()=>window.scrollTo({top:st.scrollY||0,left:0,behavior:'auto'}));
+    const y=resumeScroll===null?(loadState().scrollY||0):resumeScroll;
+    requestAnimationFrame(()=>window.scrollTo({top:y,left:0,behavior:'auto'}));
   }else{
-    save({scrollY:0});
+    if(!s.special)save({scrollY:0,resumeScrollY:0});
     requestAnimationFrame(()=>{scrollToSectionStart();requestAnimationFrame(scrollToSectionStart)});
   }
   updateProgress();
@@ -75,11 +105,8 @@ function changeFont(delta){const st=loadState();let n=st.fontSize||parseInt(getC
     const st=loadState();
     if(st.theme==='dark')document.body.classList.add('dark');
     if(st.fontSize)document.documentElement.style.setProperty('--size',st.fontSize+'px');
-    const hash=location.hash.slice(1);
-    const hasReadingHistory=Boolean(st.section);
-    const id=hash||st.section||(hasReadingHistory?'prologue':'front-cover');
-    const i=book.sections.findIndex(s=>s.id===id);
-    await loadSection(i>=0?i:0,!hash&&hasReadingHistory);
+    const coverIndex=book.sections.findIndex(s=>s.id==='front-cover');
+    await loadSection(coverIndex>=0?coverIndex:0,false);
     $('#tocBtn').onclick=openToc;$('#tocClose').onclick=closeToc;$('#scrim').onclick=closeToc;
     $('#prevBtn').onclick=()=>loadSection(currentIndex-1);$('#nextBtn').onclick=()=>loadSection(currentIndex+1);
     $('#themeBtn').onclick=()=>{document.body.classList.toggle('dark');save({theme:document.body.classList.contains('dark')?'dark':'light'})};
