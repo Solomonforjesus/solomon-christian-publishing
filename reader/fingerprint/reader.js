@@ -23,6 +23,8 @@ async function loadContentPackage(){
   return packagePromise;
 }
 async function getSectionHtml(s){
+  if(s.special==='front-cover')return `<div class="cover-page"><img src="${book.cover}" alt="Front cover of ${escapeHtml(book.title)} by ${escapeHtml(book.author)}"></div>`;
+  if(s.special==='back-cover')return `<div class="cover-page"><img src="${book.backCover}" alt="Back cover of ${escapeHtml(book.title)} by ${escapeHtml(book.author)}"></div>`;
   try{const direct=await fetch(s.file,{cache:'no-store'});if(direct.ok)return await direct.text()}catch(e){}
   const pkg=await loadContentPackage();
   const key=s.file.split('/').pop();
@@ -74,9 +76,10 @@ function changeFont(delta){const st=loadState();let n=st.fontSize||parseInt(getC
     if(st.theme==='dark')document.body.classList.add('dark');
     if(st.fontSize)document.documentElement.style.setProperty('--size',st.fontSize+'px');
     const hash=location.hash.slice(1);
-    const id=hash||st.section||'prologue';
+    const hasReadingHistory=Boolean(st.section);
+    const id=hash||st.section||(hasReadingHistory?'prologue':'front-cover');
     const i=book.sections.findIndex(s=>s.id===id);
-    await loadSection(i>=0?i:0,!hash);
+    await loadSection(i>=0?i:0,!hash&&hasReadingHistory);
     $('#tocBtn').onclick=openToc;$('#tocClose').onclick=closeToc;$('#scrim').onclick=closeToc;
     $('#prevBtn').onclick=()=>loadSection(currentIndex-1);$('#nextBtn').onclick=()=>loadSection(currentIndex+1);
     $('#themeBtn').onclick=()=>{document.body.classList.toggle('dark');save({theme:document.body.classList.contains('dark')?'dark':'light'})};
