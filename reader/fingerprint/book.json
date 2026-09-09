@@ -12,7 +12,7 @@
   "backCover": "../../fingerprint-back-hires.png",
   "readingMode": "scroll",
   "sections": [
-    {"id":"front-cover","label":"Front Cover","special":"front-cover","toc":false},
+    {"id":"front-cover","label":"Front Cover","special":"front-cover","toc":true},
     {"id":"title","label":"Title Page","file":"content/title.html","toc":false},
     {"id":"copyright","label":"Copyright","file":"content/copyright.html","toc":false},
     {"id":"dedication","label":"Dedication","file":"content/dedication.html","toc":true},
@@ -40,6 +40,6 @@
     {"id":"sources","label":"Selected Sources and Documentation","file":"content/sources.html","toc":true},
     {"id":"acknowledgments","label":"Acknowledgments","file":"content/acknowledgments.html","toc":true},
     {"id":"about-author","label":"About the Author","file":"content/about-author.html","toc":true},
-    {"id":"back-cover","label":"Back Cover","special":"back-cover","toc":false}
+    {"id":"back-cover","label":"Back Cover","special":"back-cover","toc":true}
   ]
 }
