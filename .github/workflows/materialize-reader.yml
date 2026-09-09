@@ -77,25 +77,34 @@ jobs:
       - name: Verify manifest and key publication invariants
         shell: python
         run: |
-          import json, pathlib, re, sys
+          import json, pathlib, sys
           root=pathlib.Path('reader/fingerprint')
           book=json.loads((root/'book.json').read_text(encoding='utf-8'))
           sections=book.get('sections',[])
-          if len(sections)!=27:
-              sys.exit(f'Expected 27 manifest sections, found {len(sections)}')
+          if len(sections)!=29:
+              sys.exit(f'Expected 29 manifest sections (27 interior + 2 covers), found {len(sections)}')
+          if sections[0].get('special')!='front-cover' or sections[-1].get('special')!='back-cover':
+              sys.exit('Reader manifest must begin with front cover and end with back cover.')
+          content_sections=[s for s in sections if s.get('file')]
+          if len(content_sections)!=27:
+              sys.exit(f'Expected 27 interior content sections, found {len(content_sections)}')
           missing=[]
-          for s in sections:
+          for s in content_sections:
               p=root/s['file']
               if not p.exists() or p.stat().st_size==0:
                   missing.append(str(p))
           if missing:
               sys.exit('Missing reader files: '+', '.join(missing))
-          corpus='\n'.join((root/s['file']).read_text(encoding='utf-8') for s in sections)
+          for key in ('cover','backCover'):
+              asset=(root/book[key]).resolve()
+              if not asset.exists() or asset.stat().st_size==0:
+                  sys.exit(f'Missing reader cover asset: {asset}')
+          corpus='\n'.join((root/s['file']).read_text(encoding='utf-8') for s in content_sections)
           if '20,000' in corpus or '20000' in corpus:
               sys.exit('Unexpected 20,000 quantum-count occurrence found.')
           if '16,000' not in corpus:
               sys.exit('Locked 16,000 quantum-count occurrence not found.')
-          print('QA passed: 27/27 files present; locked 16,000 count preserved.')
+          print('QA passed: 27 interior sections + front/back covers; locked 16,000 count preserved.')
 
       - name: Commit materialized section files when needed
         shell: bash
