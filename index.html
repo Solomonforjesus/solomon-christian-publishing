@@ -35,7 +35,7 @@
     .hero-section{width:100%;padding:40px 24px;background:#f3ead8;border-bottom:5px solid var(--gold)}
     .hero-inner{width:min(1220px,100%);margin:0 auto;display:grid;grid-template-columns:minmax(320px,.85fr) minmax(420px,1.15fr);gap:54px;align-items:center}
     .publishing-slate{max-width:490px;padding:30px 30px 28px;background:rgba(255,250,240,.72);border:1px solid rgba(141,109,45,.34);border-radius:14px;box-shadow:0 14px 32px rgba(21,29,37,.08)}
-    .slate-imprint{width:112px;max-height:112px;object-fit:contain;margin:0 auto 14px}
+    .slate-imprint{width:62px;height:auto;margin:0 auto 13px}
     .slate-title{margin:0 0 24px;text-align:center;color:var(--navy);font-size:clamp(1.75rem,3vw,2.45rem);line-height:1.15}
     .slate-item{padding:16px 2px;border-top:1px solid rgba(141,109,45,.28)}
     .slate-item:first-of-type{border-top:0;padding-top:0}
@@ -64,7 +64,7 @@
     @media(min-width:1400px){.banner-image{width:min(100%,1600px);margin:0 auto}}
     @media(max-width:1180px){.book-card{grid-template-columns:1fr}.book-covers{margin:0 auto}}
     @media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:30px}.publishing-slate{max-width:650px;margin:0 auto}.hero-image{max-width:610px;margin:0 auto}}
-    @media(max-width:700px){.section{padding:55px 18px}.hero-section{padding:26px 16px}.publishing-slate{padding:24px 22px}.slate-imprint{width:92px;max-height:92px}.hero-image{max-width:520px}.book-card{gap:30px;padding:24px}.book-covers{grid-template-columns:1fr;width:min(440px,100%)}}
+    @media(max-width:700px){.section{padding:55px 18px}.hero-section{padding:26px 16px}.publishing-slate{padding:24px 22px}.slate-imprint{width:54px}.hero-image{max-width:520px}.book-card{gap:30px;padding:24px}.book-covers{grid-template-columns:1fr;width:min(440px,100%)}}
   </style>
 </head>
 <body>
@@ -74,7 +74,7 @@
     <section class="hero-section">
       <div class="hero-inner">
         <aside class="publishing-slate" aria-labelledby="publishing-slate-title">
-          <img class="slate-imprint" src="SolomonChristianPublishing.png" alt="Solomon Christian Publishing imprint">
+          <img class="slate-imprint" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAPCAYAAAAceBSiAAAD/klEQVR42l2VX4gVZRjGf887c+a4Z9XddXNX2/UPSaViZGqBN7pgEVokBBGKXUQSQVddWNFlV2Eh3RZ0mRl2E0VFYlk3RVFYFGYpiEnppuiund2ZMzPf28XMOWftwHDOd/i+532+533eZ0RrHASS4R4AAwkEBEAOTrUGoF6jBf8B7tWj+mCo90r9w2bVnnodqy7kIVQb1K+BqV9YQh4qfBypBIS7Ki49EgtwZH0sCdU/qz3CHPBQH1/AUuqyVQXiXT4BPODBGVkEXjoiIC+RvAtfYflC3O6lKxLCsVrzmmWXm+P1QSGE95WjpBGVrFgs3n/zKbdiHkKJeQ6h7Lej1wJuVRRwCUfEXaY9SeRdlXFTD8RwHAevUJYPGKPNFMMJClgowCrQQNS7RLe+Y/z/E5Es6UklGUKYwKrmIgmziFhOZDEBMdBwjjz3gG9fP0iYyTd888f0BwHDzJAiQm1amRPVuJX3rG8ogUkGMmSqnC2xc8s4O+8bJ/aChnIWkfPKvi2fjSbzmIk7JkfZuG6QqDPLI3s2PTmytAkOO+6Z4KEtE11sPE2Z2jzBuvEWXmtXKVm12CBU7fCuTIEz5/9h3/a1/vbLu7wZgSLx2I6Jh/ftuusNypRfz1zkp/MzZGXMa+9+p6s35kg8Y8/U6osH997pUTGP8lmOH57yQ4+u80iVb3pzESr3WuVixxFyJ/GUa9fbfP77Ze3eNEzRyUmznHeOff/iqtt0oCFncuUQW9ePgcQL+zd7K4kZHFzMhrFk1bGPflbcGiCSsWp0mLdOnNVvl27SUAerR6wrfdyb5XqeQ4CAceLrc3QObuOJHWv2Ts/mHz6/f9Ph1UMlG++e8MmJMSaHMkIo2boWPj2y25vJABtuDyxt3et/t3/UiuFlrFkxwqnT18AiihBunQIHMTjW64E8YBQEdwzx8atT/uC2FkUuyrLAgdIFUYJFSQXgHcpijlA4jUaESicZbGGRc/TkFZ4+/IMCAgX6FzekWvZuzx0ILsAILo6fOrc/zWD+3zZ5UZJmgbTjpJkzn+XVkxakKYSypJibI89Sbl5t057t8Mm3F2VeECnH3ep4VR1Sgbiq6/3YlqEQkAJf/nLlvWjJsqMeDTCTwUxaMJN1SLOCoggURYmsIDIjacSMLIoZH45ZtrSBhkY4fXYaVCAXqNGPbKr8iPsGWPCisKoNf15OOfDSSd1od4iaRrMZ0xqIaSV6vJlovBHbsBOKLA/Tc2l5YfZm8dXMbIeQl2xev/zQhb9S3FTlkocFKVp9xd1woZdwVjnfxMrlgzz7zP0+2iwInZxOlpMWJaEocRyLY6K4JBLEOLGJKEmYyZxLF+Y49kX8+vV2CZH6bz76c/4f1RDnPWbvrnYAAAAASUVORK5CYII=" alt="Solomon Christian Publishing crown imprint">
           <h2 class="slate-title" id="publishing-slate-title">Current Publishing Slate</h2>
           <div class="slate-item">
             <span class="slate-status">Published</span>
