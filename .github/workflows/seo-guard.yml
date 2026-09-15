@@ -1,5 +1,6 @@
 name: SEO Regression Guard
 
+# Baseline verified after fine-tuning article indexing fix.
 on:
   push:
     branches: [main]
