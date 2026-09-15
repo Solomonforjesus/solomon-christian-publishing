@@ -1,0 +1,24 @@
+name: Notify IndexNow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Notify IndexNow of changed public URLs
+        env:
+          INDEXNOW_HOST: solomonforjesus.org
+          INDEXNOW_KEY_FILE: 7bfa174d13362627fd4a2818e2503ef6.txt
+        run: python scripts/indexnow.py
