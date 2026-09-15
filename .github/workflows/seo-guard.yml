@@ -1,0 +1,23 @@
+name: SEO Regression Guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - 'sitemap.xml'
+      - 'robots.txt'
+      - 'scripts/seo_guard.py'
+      - '.github/workflows/seo-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Publishing discovery metadata
+        run: python scripts/seo_guard.py
