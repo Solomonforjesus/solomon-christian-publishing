@@ -11,6 +11,11 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://solomonforjesus.org/authors/gary-dearing/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://solomonforjesus.org/articles/fine-tuning-is-only-the-beginning/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
