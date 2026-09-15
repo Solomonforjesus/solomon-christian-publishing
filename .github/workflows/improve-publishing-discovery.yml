@@ -1,0 +1,82 @@
+name: Improve Publishing Discovery
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/improve-publishing-discovery.yml
+
+permissions:
+  contents: write
+
+jobs:
+  seo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Strengthen homepage and book discovery metadata
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import json
+
+          site = "https://solomonforjesus.org"
+
+          # Homepage
+          p = Path("index.html")
+          s = p.read_text(encoding="utf-8")
+          if 'name="robots"' not in s:
+              s = s.replace('<meta name="description" content="Solomon Christian Publishing produces thoughtful Christian books and serious written work in service to truth, wisdom, and the Gospel of Jesus Christ.">', '<meta name="description" content="Solomon Christian Publishing produces thoughtful Christian books and serious written work in service to truth, wisdom, and the Gospel of Jesus Christ.">\n  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">', 1)
+          if 'name="twitter:title"' not in s:
+              twitter = '''  <meta name="twitter:title" content="Solomon Christian Publishing | Christian Books and Gospel-Centered Writing">\n  <meta name="twitter:description" content="Thoughtful Christian books and serious written work in service to truth, wisdom, and the Gospel of Jesus Christ.">\n  <meta name="twitter:image" content="https://solomonforjesus.org/SolomonChristianPublishing.png">\n'''
+              s = s.replace('<meta name="twitter:card" content="summary_large_image">\n', '<meta name="twitter:card" content="summary_large_image">\n' + twitter, 1)
+          if 'id="publishing-website-schema"' not in s:
+              website = {
+                  "@context": "https://schema.org",
+                  "@type": "WebSite",
+                  "@id": site + "/#website",
+                  "url": site + "/",
+                  "name": "Solomon Christian Publishing",
+                  "description": "Thoughtful Christian books and serious written work in service to truth, wisdom, and the Gospel of Jesus Christ."
+              }
+              tag = '  <script id="publishing-website-schema" type="application/ld+json">' + json.dumps(website, separators=(",", ":")) + '</script>\n'
+              s = s.replace('</head>', tag + '</head>', 1)
+          p.write_text(s, encoding="utf-8")
+
+          # Fingerprint reader
+          p = Path("reader/fingerprint/index.html")
+          s = p.read_text(encoding="utf-8")
+          if 'name="robots"' not in s:
+              s = s.replace('<meta name="description" content="Read Fingerprint of Reality: Science, Design, and the Truth Beyond Matter by Gary Dearing, published by Solomon Christian Publishing.">', '<meta name="description" content="Read Fingerprint of Reality: Science, Design, and the Truth Beyond Matter by Gary Dearing, published by Solomon Christian Publishing.">\n<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">', 1)
+          if 'name="twitter:title"' not in s:
+              twitter = '''<meta name="twitter:title" content="Fingerprint of Reality — Science, Design, and the Truth Beyond Matter">\n<meta name="twitter:description" content="Read the free digital edition by Gary Dearing from Solomon Christian Publishing.">\n<meta name="twitter:image" content="https://solomonforjesus.org/fingerprint-front-hires.png">\n'''
+              s = s.replace('<meta name="twitter:card" content="summary_large_image">\n', '<meta name="twitter:card" content="summary_large_image">\n' + twitter, 1)
+          if 'id="fingerprint-book-schema"' not in s:
+              book = {
+                  "@context": "https://schema.org",
+                  "@type": "Book",
+                  "@id": site + "/reader/fingerprint/#book",
+                  "name": "Fingerprint of Reality",
+                  "alternateName": "Fingerprint of Reality: Science, Design, and the Truth Beyond Matter",
+                  "description": "A cumulative investigation of science, evidence, meaning, and the truth beyond matter.",
+                  "url": site + "/reader/fingerprint/",
+                  "image": site + "/fingerprint-front-hires.png",
+                  "inLanguage": "en",
+                  "isAccessibleForFree": True,
+                  "author": {"@type": "Person", "name": "Gary Dearing"},
+                  "publisher": {"@type": "Organization", "name": "Solomon Christian Publishing", "url": site + "/"},
+                  "genre": ["Christian apologetics", "Science and faith"]
+              }
+              tag = '<script id="fingerprint-book-schema" type="application/ld+json">' + json.dumps(book, separators=(",", ":")) + '</script>\n'
+              s = s.replace('</head>', tag + '</head>', 1)
+          p.write_text(s, encoding="utf-8")
+          PY
+      - name: Commit Publishing discovery improvements
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html reader/fingerprint/index.html
+          git commit -m "Improve Publishing and Fingerprint discovery metadata"
+          git push
