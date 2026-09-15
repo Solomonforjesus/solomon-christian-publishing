@@ -7,8 +7,8 @@ from urllib.error import HTTPError
 from pathlib import Path
 
 HOST = os.environ["INDEXNOW_HOST"]
-KEY = os.environ["INDEXNOW_KEY"]
 KEY_FILE = os.environ["INDEXNOW_KEY_FILE"]
+KEY = Path(KEY_FILE).read_text(encoding="utf-8").strip()
 BASE = f"https://{HOST}"
 
 sitemap_text = Path("sitemap.xml").read_text(encoding="utf-8")
