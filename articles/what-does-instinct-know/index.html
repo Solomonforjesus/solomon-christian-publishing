@@ -16,9 +16,9 @@
   <meta property="og:description" content="The Painted Lady, quantum biology, inherited migration, and the hand of God in a journey no butterfly completes.">
   <meta property="og:url" content="https://solomonforjesus.org/articles/what-does-instinct-know/">
   <meta property="og:image" content="https://solomonforjesus.org/painted-lady-in-flight.jpg">
-  <meta property="og:image:alt" content="Solomon Christian Publishing">
+  <meta property="og:image:alt" content="Painted Lady butterfly in flight">
   <meta property="article:published_time" content="2026-10-04">
-  <meta property="article:modified_time" content="2026-10-04">
+  <meta property="article:modified_time" content="2026-10-05">
   <meta property="article:author" content="Gary Dearing">
   <meta property="article:section" content="Science, Creation &amp; Christian Thought">
   <meta property="article:tag" content="Painted Lady butterfly">
@@ -28,6 +28,7 @@
   <meta name="twitter:title" content="What Does Instinct Know? | Solomon Christian Publishing">
   <meta name="twitter:description" content="A serious examination of Painted Lady migration, quantum biology, inherited behavior, and the sovereignty of God over creation.">
   <meta name="twitter:image" content="https://solomonforjesus.org/painted-lady-in-flight.jpg">
+  <meta name="twitter:image:alt" content="Painted Lady butterfly in flight">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -39,7 +40,7 @@
     "mainEntityOfPage":{"@type":"WebPage","@id":"https://solomonforjesus.org/articles/what-does-instinct-know/"},
     "url":"https://solomonforjesus.org/articles/what-does-instinct-know/",
     "datePublished":"2026-10-04",
-    "dateModified":"2026-10-04",
+    "dateModified":"2026-10-05",
     "inLanguage":"en-US",
     "isAccessibleForFree":true,
     "keywords":["Painted Lady butterfly","Vanessa cardui","butterfly migration","instinct","quantum biology","cryptochrome","magnetoreception","biological information","creation","God and science","Fingerprint of Reality"],
@@ -90,6 +91,7 @@
     .references{margin-top:3.4em;padding-top:1.8em;border-top:1px solid #ded3bd}
     .references h2{margin-top:0}
     .references p{font-size:.98rem;line-height:1.62;margin-bottom:1.15em}
+    .share-wrap{margin:24px 0 0;font-family:Arial,sans-serif}.share-button{appearance:none;border:1px solid #8d6d2d;border-radius:8px;background:var(--paper);color:var(--navy);padding:9px 15px;font:inherit;font-weight:700;cursor:pointer}.share-button:hover{background:var(--cream)}.share-button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.share-status{margin-left:10px;color:var(--muted);font-size:.88rem}
     .companion{margin-top:36px;padding:24px 26px;background:var(--cream);border-left:4px solid var(--gold)}
     .companion p:last-child{margin-bottom:0}
     .button{display:inline-block;background:var(--navy);color:#fff;border:2px solid #8d6d2d;border-radius:8px;padding:10px 18px;text-decoration:none;font-weight:bold}
@@ -108,7 +110,8 @@
         <h1>What Does Instinct Know?</h1>
         <p class="subtitle">The Painted Lady, Quantum Biology, and the Hand of God in a Journey No Butterfly Completes</p>
         <p class="deck">A multigenerational migration spanning Africa and Europe raises a deceptively simple question: what do we really mean when we call such behavior <em>instinct</em>?</p>
-        <p class="byline">By Gary Dearing · Solomon Christian Publishing · October 4, 2026</p><p class="photo-credit">
+        <p class="byline">By Gary Dearing · Solomon Christian Publishing · October 4, 2026</p>
+        <div class="share-wrap"><button class="share-button" id="share-article" type="button">Share This Article</button><span class="share-status" id="share-status" role="status" aria-live="polite"></span></div>
       </header>
 
       <div class="article-body">
@@ -307,6 +310,40 @@
   <footer><p>© 2026 Solomon Christian Publishing</p><p><a href="https://solomonforjesus.org">solomonforjesus.org</a></p></footer>
 
   <script>
+    (function () {
+      const button = document.getElementById("share-article");
+      const status = document.getElementById("share-status");
+      if (!button) return;
+      const shareData = {
+        title: "What Does Instinct Know?",
+        text: "The Painted Lady, quantum biology, inherited migration, and the hand of God in a journey no butterfly completes.",
+        url: "https://solomonforjesus.org/articles/what-does-instinct-know/"
+      };
+      button.addEventListener("click", async function () {
+        status.textContent = "";
+        try {
+          if (navigator.share) {
+            await navigator.share(shareData);
+            return;
+          }
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(shareData.url);
+            status.textContent = "Link copied.";
+            return;
+          }
+          window.prompt("Copy this article link:", shareData.url);
+        } catch (error) {
+          if (error && error.name === "AbortError") return;
+          try {
+            await navigator.clipboard.writeText(shareData.url);
+            status.textContent = "Link copied.";
+          } catch (_) {
+            window.prompt("Copy this article link:", shareData.url);
+          }
+        }
+      });
+    })();
+
     window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
