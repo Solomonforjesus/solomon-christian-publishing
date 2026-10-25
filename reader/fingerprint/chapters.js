@@ -1,0 +1,6 @@
+(()=>{'use strict';const key='solomon-reader:fingerprint-of-reality';let state={};try{state=JSON.parse(localStorage.getItem(key)||'{}')||{}}catch{};const root=document.documentElement;
+function save(){try{const previous=JSON.parse(localStorage.getItem(key)||'{}');localStorage.setItem(key,JSON.stringify({...previous,...state}))}catch{}}
+function apply(){document.body.classList.toggle('dark',state.theme==='dark');if(state.fontSize)root.style.setProperty('--size',Math.max(16,Math.min(26,Number(state.fontSize)))+'px')}
+function size(delta){state.fontSize=Math.max(16,Math.min(26,(Number(state.fontSize)||parseInt(getComputedStyle(root).getPropertyValue('--size'))||20)+delta));apply();save()}
+document.getElementById('fontDown').onclick=()=>size(-1);document.getElementById('fontUp').onclick=()=>size(1);document.getElementById('themeBtn').onclick=()=>{state.theme=state.theme==='dark'?'light':'dark';apply();save()};
+document.getElementById('shareChapter').onclick=async()=>{const url=document.querySelector('[rel=canonical]').href;try{if(navigator.share)await navigator.share({title:document.title,url});else{await navigator.clipboard.writeText(url);document.getElementById('shareStatus').textContent='Chapter link copied'}}catch(e){if(e.name!=='AbortError')document.getElementById('shareStatus').textContent='Copy this page address to share the chapter.'}};apply();})();

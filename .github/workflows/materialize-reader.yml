@@ -106,15 +106,18 @@ jobs:
               sys.exit('Locked 16,000 quantum-count occurrence not found.')
           print('QA passed: 27 interior sections + front/back covers; locked 16,000 count preserved.')
 
+      - name: Rebuild discoverable chapter pages
+        run: python scripts/build_chapter_pages.py
+
       - name: Commit materialized section files when needed
         shell: bash
         run: |
-          if git diff --quiet -- reader/fingerprint/content; then
+          if git diff --quiet -- reader/fingerprint sitemap.xml; then
             echo "Reader sections already materialized; no commit required."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reader/fingerprint/content
+          git add reader/fingerprint sitemap.xml
           git commit -m "Materialize verified Solomon Reader sections"
           git push

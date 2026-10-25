@@ -2,7 +2,7 @@ let book,currentIndex=0,contentPackage=null,packagePromise=null;
 const $=s=>document.querySelector(s);
 const stateKey='solomon-reader:fingerprint-of-reality';
 const packageParts=8;
-function loadState(){return JSON.parse(localStorage.getItem(stateKey)||'{}')}
+function loadState(){try{return JSON.parse(localStorage.getItem(stateKey)||'{}')||{}}catch{return {}}}
 function save(extra={}){
   if(!book)return;
   const prev=loadState();
@@ -14,7 +14,7 @@ function save(extra={}){
     next.resumeSection=s.id;
     next.resumeScrollY=window.scrollY;
   }
-  localStorage.setItem(stateKey,JSON.stringify(next));
+  try{localStorage.setItem(stateKey,JSON.stringify(next))}catch{}
 }
 function getResumeState(){
   const st=loadState();
@@ -25,7 +25,7 @@ function getResumeState(){
   const y=st.resumeSection?st.resumeScrollY:st.scrollY;
   return {index:i,scrollY:y||0};
 }
-function buildToc(){const nav=$('#tocList');nav.innerHTML='';book.sections.filter(s=>s.toc).forEach(s=>{const a=document.createElement('a');a.href='#'+s.id;a.textContent=s.label;a.dataset.id=s.id;a.onclick=e=>{e.preventDefault();goToId(s.id);closeToc()};nav.appendChild(a)})}
+function buildToc(){const nav=$('#tocList');nav.innerHTML='';book.sections.filter(s=>s.toc).forEach(s=>{const a=document.createElement('a');a.href=/^chapter-\d\d$/.test(s.id)?s.id+'/':'#'+s.id;a.textContent=s.label;a.dataset.id=s.id;a.onclick=e=>{if(/^chapter-\d\d$/.test(s.id))return;e.preventDefault();goToId(s.id);closeToc()};nav.appendChild(a)})}
 async function loadContentPackage(){
   if(contentPackage)return contentPackage;
   if(packagePromise)return packagePromise;
@@ -106,7 +106,9 @@ function changeFont(delta){const st=loadState();let n=st.fontSize||parseInt(getC
     if(st.theme==='dark')document.body.classList.add('dark');
     if(st.fontSize)document.documentElement.style.setProperty('--size',st.fontSize+'px');
     const coverIndex=book.sections.findIndex(s=>s.id==='front-cover');
-    await loadSection(coverIndex>=0?coverIndex:0,false);
+    const linkedIndex=book.sections.findIndex(s=>s.id===location.hash.slice(1));
+    await loadSection(linkedIndex>=0?linkedIndex:(coverIndex>=0?coverIndex:0),false);
+    window.addEventListener('hashchange',()=>{const i=book.sections.findIndex(s=>s.id===location.hash.slice(1));if(i>=0)loadSection(i)});
     $('#tocBtn').onclick=openToc;$('#tocClose').onclick=closeToc;$('#scrim').onclick=closeToc;
     $('#prevBtn').onclick=()=>loadSection(currentIndex-1);$('#nextBtn').onclick=()=>loadSection(currentIndex+1);
     $('#themeBtn').onclick=()=>{document.body.classList.toggle('dark');save({theme:document.body.classList.contains('dark')?'dark':'light'})};

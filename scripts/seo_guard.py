@@ -149,6 +149,14 @@ def main():
             for required_id in (BOOK_ID, AUTHOR_ID, ORG_ID):
                 if required_id not in ids:
                     errors.append(f"Fingerprint reader missing entity reference {required_id}")
+        elif re.fullmatch(r"/reader/fingerprint/chapter-\d\d/", path):
+            for required in ("Chapter", "BreadcrumbList"):
+                if required not in types:
+                    errors.append(f"Chapter missing {required}: {file_path}")
+            source = Path("reader/fingerprint/content") / (path.strip("/").split("/")[-1] + ".html")
+            page_text = file_path.read_text(encoding="utf-8")
+            if source.read_text(encoding="utf-8").strip() not in page_text:
+                errors.append(f"Chapter text differs from source: {file_path}")
         elif path == "/authors/gary-dearing/":
             for required in ("ProfilePage", "Person", "BreadcrumbList"):
                 if required not in types:
@@ -160,6 +168,10 @@ def main():
                 if required not in types:
                     errors.append(f"Publishing article missing {required} schema: {file_path}")
 
+    for n in range(1, 17):
+        chapter_url = f"https://{HOST}/reader/fingerprint/chapter-{n:02d}/"
+        if chapter_url not in urls:
+            errors.append(f"Chapter missing from sitemap: {chapter_url}")
     robots = robots_path.read_text(encoding="utf-8")
     if "User-agent: OAI-SearchBot" not in robots:
         errors.append("robots.txt no longer explicitly allows OAI-SearchBot")
