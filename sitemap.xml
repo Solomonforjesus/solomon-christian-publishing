@@ -21,15 +21,15 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://solomonforjesus.org/articles/fine-tuning-is-only-the-beginning/</loc>
+    <loc>https://solomonforjesus.org/reader/fine-tuning-is-only-the-beginning/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://solomonforjesus.org/articles/what-does-instinct-know/</loc>
+    <loc>https://solomonforjesus.org/reader/what-does-instinct-know/</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-<url><loc>https://solomonforjesus.org/articles/america-forgot-its-creator/</loc><lastmod>2026-10-13</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://solomonforjesus.org/reader/america-forgot-its-creator/</loc><lastmod>2026-10-13</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>
