@@ -1,0 +1,7 @@
+.rtTooltip { box-sizing: border-box; width: 350px !important; max-width: calc(100vw - 16px) !important; max-height: calc(100dvh - 16px); overflow-y: auto; font-size: 16px !important; line-height: 1.55 !important; }
+.rtTooltip .rtTooltipBody, .rtTooltip .rtTooltipBody p, .rtTooltip .rtTooltipBody span { font-size: 16px !important; line-height: 1.55 !important; font-weight: 400 !important; }
+.rtTooltip .scripture-preview-close { display: block; width: auto; margin: 6px 8px 6px auto; padding: 5px 10px; border-radius: 6px; background: #174976; color: white; font: 700 14px Arial, sans-serif; }
+.rtTooltip .scripture-preview-close:hover { transform: none; background: #103553; }
+.rtTooltip a:focus-visible, .rtTooltip button:focus-visible { outline: 3px solid #1e5f9e; outline-offset: 2px; }
+.rtTooltip { z-index: 2147483647 !important; }
+a.scripture-link { text-decoration: underline; text-underline-offset: 2px; }
