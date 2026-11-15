@@ -1,0 +1,50 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/articles/america-forgot-its-creator",
+      "destination": "/reader/america-forgot-its-creator/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/america-forgot-its-creator/",
+      "destination": "/reader/america-forgot-its-creator/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/america-forgot-its-creator/index.html",
+      "destination": "/reader/america-forgot-its-creator/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/fine-tuning-is-only-the-beginning",
+      "destination": "/reader/fine-tuning-is-only-the-beginning/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/fine-tuning-is-only-the-beginning/",
+      "destination": "/reader/fine-tuning-is-only-the-beginning/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/fine-tuning-is-only-the-beginning/index.html",
+      "destination": "/reader/fine-tuning-is-only-the-beginning/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/what-does-instinct-know",
+      "destination": "/reader/what-does-instinct-know/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/what-does-instinct-know/",
+      "destination": "/reader/what-does-instinct-know/",
+      "permanent": true
+    },
+    {
+      "source": "/articles/what-does-instinct-know/index.html",
+      "destination": "/reader/what-does-instinct-know/",
+      "permanent": true
+    }
+  ]
+}
