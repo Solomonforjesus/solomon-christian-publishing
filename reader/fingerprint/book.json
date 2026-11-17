@@ -38,8 +38,8 @@
     {"id":"appendix-a","label":"Appendix A — How the Evidence Algorithm Worked","file":"content/approved/appendix-a.html","toc":true},
     {"id":"appendix-b","label":"Appendix B — Quantum Reality, Information, and the Shape of the Universe","file":"content/appendix-b.html","toc":true},
     {"id":"sources","label":"Selected Sources and Documentation","file":"content/sources.html","toc":true},
-    {"id":"acknowledgments","label":"Acknowledgments","file":"content/acknowledgments.html","toc":true},
-    {"id":"about-author","label":"About the Author","file":"content/about-author.html","toc":true},
+    {"id":"acknowledgments","label":"Acknowledgments","file":"content/approved/acknowledgments.html","toc":true},
+    {"id":"about-author","label":"About the Author","file":"content/approved/about-author.html","toc":true},
     {"id":"back-cover","label":"Back Cover","special":"back-cover","toc":true}
   ]
 }
